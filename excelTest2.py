@@ -1,5 +1,6 @@
 import openpyxl
 
+# openpyxl 读取练习
 wb = openpyxl.load_workbook('./file/Marvel.xlsx')
 
 sheet = wb['new title']

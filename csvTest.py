@@ -1,5 +1,6 @@
 import csv
 
+# CSV文件操作练习
 unit_rooms = {}
 to_direct = ['', '南北', '东西']
 
@@ -56,7 +57,7 @@ def set_template():
     for i in range(int(start_floor) + 1, int(end_floor) + 1):
         floor_data = {}
         for f in unit_rooms[start_floor]:
-            f_new = int(str(int(str(f)[0]) + i-1) + str(f)[1:])
+            f_new = int(str(int(str(f)[0]) + i - 1) + str(f)[1:])
             floor_data[f_new] = unit_rooms[start_floor][f]
         unit_rooms[str(i)] = floor_data
     print(unit_rooms)

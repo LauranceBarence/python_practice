@@ -2,6 +2,8 @@ import datetime
 import time
 
 
+# 字符串格式化为日期串
+
 def check_leap(year):
     if (year % 100 != 0 and year % 4 == 0) or (year % 400 == 0):
         return True

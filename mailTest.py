@@ -4,8 +4,9 @@ from email.mime.multipart import MIMEMultipart
 import smtplib
 
 
-def init_server(host, port):
+# 邮件发送练习
 
+def init_server(host, port):
     server = smtplib.SMTP()
     server.connect(host, port)
     return server

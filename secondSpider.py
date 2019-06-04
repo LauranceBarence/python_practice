@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+# 爬虫与BeautifulSoup练习 爬取书籍信息
 res = requests.get('http://books.toscrape.com/')
 
 html = res.text

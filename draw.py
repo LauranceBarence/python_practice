@@ -1,6 +1,8 @@
 import turtle
 
 
+# turtle 库练习
+
 def draw_star(size):
     count = 1
     while count <= 5:
@@ -19,14 +21,14 @@ def star_draw():
 
 
 def draw_tree(depth):
-    if depth+1 >= 1:
-        turtle.forward((depth+1)*10)
+    if depth + 1 >= 1:
+        turtle.forward((depth + 1) * 10)
         turtle.right(20)
-        draw_tree(depth-1)
+        draw_tree(depth - 1)
         turtle.left(40)
-        draw_tree(depth-1)
+        draw_tree(depth - 1)
         turtle.right(20)
-        turtle.backward((depth+1)*10)
+        turtle.backward((depth + 1) * 10)
 
 
 def main():

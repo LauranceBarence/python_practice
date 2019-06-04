@@ -1,6 +1,8 @@
 import math
 
 
+# 取绝对值的三种方式
+
 def abs_value1(val):
     print(abs(val))
 

@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
+# 爬虫与BeautifulSoup练习
 res = requests.get('https://wordpress-edu-3autumn.localprod.forc.work/all-about-the-future_04/')
 
 text = res.text

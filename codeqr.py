@@ -2,6 +2,7 @@ from MyQR import myqr
 import os
 
 
+# 生成动态二维码
 def main():
     version, level, qr_name = myqr.run(
         words="I Love You",
