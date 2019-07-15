@@ -1,6 +1,7 @@
 .idea/
 venv/
 venv2/
+*.pyc
 
 # local env files
 .env.local
