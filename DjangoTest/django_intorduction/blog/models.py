@@ -1,0 +1,11 @@
+from django.db import models
+from django.db import models
+
+
+# Create your models here.
+class Article(models.Model):
+    article_id = models.TextField(primary_key=True)
+    title = models.TextField()
+    brief_content = models.TextField()
+    content = models.TextField()
+    publish_date = models.DateTimeField(auto_now=True)
