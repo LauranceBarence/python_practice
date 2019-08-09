@@ -5,6 +5,7 @@ import time
 import random
 import turtle
 from tkinter import *
+from collections import *
 
 
 # 1. 数字组合
@@ -706,4 +707,286 @@ def exchange_position(arr):
     print(arr)
 
 
+# 68. 旋转数列
+def rotate_array(arr, m):
+    deq = deque(arr, maxlen=len(arr))
+    print(arr)
+    deq.rotate(m)
+    print(list(deq))
 
+
+# 69. 报数
+def cal_count(n):
+    arr = []
+    for i in range(1, n + 1):
+        arr.append({'order': i})
+    res = filter_arr(arr)
+    print('最后留下来的是原来的第{}位'.format(res))
+
+
+def filter_arr(arr):
+    if len(arr) < 3:
+        return arr[1]['order']
+    elif len(arr) >= 3:
+        new_arr = []
+        for i in range(len(arr)):
+            if (i + 1) % 3 == 0:
+                pass
+            else:
+                new_arr.append(arr[i])
+        return filter_arr(new_arr)
+
+
+# 70. 字符串长度
+def str_len(s):
+    return len(s)
+
+
+# 71. 输入和输出
+def in_out():
+    student_list = []
+    for i in range(5):
+        name = input('请输入学生姓名')
+        num = input('请输入学生学号')
+        student_list.append({'num': num, 'name': name})
+    for item in student_list:
+        print('学号:{num}, 姓名:{name}'.format(num=item['num'], name=item['name']))
+
+
+# 72. 创建链表
+# 73. 反向输出链表
+class Node:
+
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+    def get_data(self):
+        return self.data
+
+
+class LinkList:
+    def __init__(self, head):
+        self.head = head
+
+    def is_empty(self):
+        return self.get_len() == 0
+
+    def get_len(self):
+        length = 0
+        temp = self.head
+        while temp is not None:
+            length += 1
+            temp = temp.next
+        return length
+
+    def append(self, node):
+        temp = self.head
+        while temp.next is not None:
+            temp = temp.next
+        temp.next = node
+
+    def delete(self, index=None, node=Node):
+        if index is not None:
+            if index < 1 or index > self.get_len():
+                print('warn')
+                return
+            elif index == 1:
+                self.head = self.head.next
+                return
+            else:
+                count = 0
+                temp = self.head
+                while temp is not None:
+                    count += 1
+                    if count == index - 1:
+                        temp.next = temp.next.next
+
+    def insert(self, pos, node):
+        if pos < 1 or pos > self.get_len():
+            print("插入结点位置不合理")
+            return
+        temp = self.head
+        cur_pos = 0
+        while temp is not Node:
+            cur_pos += 1
+            if cur_pos == pos - 1:
+                node.next = temp.next
+                temp.next = node
+                break
+            temp = temp.next
+
+    def reverse(self, head):
+        if head is None and head.next is None:
+            return head
+        pre = head
+        cur = head.next
+        while cur is not None:
+            temp = cur.next
+            cur.next = pre
+            pre = cur
+            cur = temp
+        head.next = None
+        return pre
+
+    def print_list(self, head):
+        init_data = []
+        while head is not None:
+            init_data.append(head.get_data())
+            head = head.next
+        return init_data
+
+
+# 74. 列表排序连接
+def sort_concat(arr1, arr2):
+    arr1.extend(arr2)
+    arr1.sort()
+    print(arr1)
+
+
+# 76. 做函数
+def func(n):
+    s = 1 if n % 2 == 1 else 2
+    res = 0
+    while s <= n:
+        res += 1.0 / s
+        s = s + 2
+    print(res)
+
+
+# 80. 猴子分桃
+def split_():
+    i = 0  # 执行次数
+    j = 1  # 最后猴子拿到的桃子数
+    x = 0  # 每次均分后，第一只猴子拿了之后剩下的总数
+    while i < 5:
+        x = 4 * j;
+        for i in range(0, 5):
+            if x % 4 != 0:
+                break
+            else:
+                i = i + 1
+            x = (x / 4) * 5 + 1
+        j += 1
+    print(x)
+
+
+# 81. 求未知数
+def cal_unknown():
+    base = 809
+    for i in range(10, 20):
+        if (base * i in [x for x in range(1000, 10000)]) and 8 * i < 100 <= 9 * i:
+            key = i
+            if base * key == 800 * key + 9 * key:
+                print('??表示{0},809*{1}={2}'.format(key, key, base * key))
+                break
+
+
+# 82. 八进制转十进制
+def oct2int():
+    print(int('0o' + input('请输入八进制数'), 8))
+
+
+# 83. 制作奇数
+def make_odd(b):
+    end_count = 4
+    head_count = 7
+    count = end_count * head_count if b > 1 else end_count
+    if b - 2 > 0:
+        for i in range(b - 2):
+            count *= 8
+    print(count)
+
+
+# 84. 连接字符串
+def join_str(str_arr, delimiter):
+    return delimiter.join(str_arr)
+
+
+# 85. 整除
+def mod(n):
+    start = 9
+    if n % 2 == 1:
+        while True:
+            if start < n or start % n != 0:
+                start *= 10
+                start += 9
+            else:
+                break
+        print('{0}/{1}={2}'.format(start, n, int(start / n)))
+    else:
+        print('请输入奇数！')
+
+
+# 86. 连接字符串
+def append_str(a, b):
+    return b + a
+
+
+# 88. 打印星号
+def print_star(n):
+    print('*' * int(n))
+
+
+# 89. 解码
+def decode_(data):
+    result = ''
+    for s in data[::-1]:
+        if int(s) >= 5:
+            result += str(int(s) - 5)
+        else:
+            result += str((int(s) + 10) - 5)
+    print(result)
+
+
+# 95. 转换时间格式
+def format_time(datetime_obj, formatter='%Y-%m-%d %H:%M:%S'):
+    print(datetime_obj.strftime(formatter))
+
+
+# 96. 计算复读次数
+def cal_replay(str_, sub_str):
+    print(str_.count(sub_str))
+
+
+# 97. 磁盘写入
+def input_1():
+    with open('./file/input_.txt', 'w+') as file:
+        while True:
+            ch = input('请输入字符')
+            if len(ch) == 1:
+                if ch != '#':
+                    file.write(ch)
+                else:
+                    break
+            else:
+                print('请输入单个字符!')
+
+
+# 98. 磁盘写入
+def input_2():
+    with open('./file/test.txt', 'w+') as file:
+        str_ = input('请输入内容')
+        file.write(str_.upper())
+
+
+# 99. 磁盘读写
+def input_3():
+    with open('./file/a.txt', 'r') as a:
+        str_a = a.read()
+        a.close()
+    with open('./file/b.txt', 'r') as b:
+        str_b = b.read()
+        b.close()
+    with open('./file/c.txt', 'w') as c:
+        str_c = str_a + str_b
+        arr_c = [s for s in str_c]
+        arr_c.sort()
+        str_input = ''.join(arr_c)
+        c.write(str_input)
+        c.close()
+
+
+# 100. 列表转字典
+def list2dict(list1, list2):
+    print(dict(zip(list1, list2)))
