@@ -4,6 +4,10 @@ import csv
 from bs4 import BeautifulSoup
 from gevent.queue import Queue
 import gevent
+import pandas
+import matplotlib.pyplot as plt
+plt.rcParams['font.sans-serif'] = ['SimHei']
+plt.rcParams['axes.unicode_minus'] = False
 
 monkey.patch_all()
 
@@ -65,38 +69,74 @@ def crawl_city():
         return None
 
 
+# 添加协程任务
 def push_work(url_list):
     for url in url_list:
         work.put_nowait(url)
 
 
+# 分配协程任务
 def split_task(count):
     for i in range(count):
         task = gevent.spawn(crawler_data)
         task_list.append(task)
 
 
+# 启动协程
 def run():
     gevent.joinall(task_list)
 
 
 # 格式化处理数据,存入文件
 def format_data(data):
-    pass
+    file_list = []
+    header_list = ['city', 'AQI', 'PM2.5/1h', 'PM10/1h', 'CO/1h', 'NO2/1h', 'O3/1h', 'O3/8h', 'SO2/1h']
+    for item in data:
+        row = []
+        for city in item:
+            row.append(city)
+            for key in item[city]:
+                value = item[city][key]
+                row.append(value)
+        file_list.append(row)
+    # with open('./file/AQI.csv', 'w', encoding='utf-8', newline='') as file:
+    #     writer = csv.writer(file)
+    #     writer.writerow(header_list)
+    #     for row in file_list:
+    #         writer.writerow(row)
+    result = pandas.DataFrame(data=file_list, columns=header_list)
+    return result
 
 
 # 显示图形化结果
-def draw_result(data):
-    pass
+def draw_result_array(data):
+    # data.to_excel('./file/AQI.xlsx', index=False, sheet_name='2019.0827',encoding='utf-8')
+    show_result = data.sort_values(by=['AQI']).tail(10)
+    show_result.plot(kind='bar', x='city', y='AQI')
+    plt.show()
+
+
+# 读取文件
+def read_csv_file(filepath):
+    file_content = filter_data(pandas.read_csv(filepath))
+    return file_content
+
+
+# 数据清洗
+def filter_data(data):
+    condition = data['AQI'] > 0
+    return data[condition]
 
 
 def main():
-    url_list = crawl_city()
-    if url_list:
-        push_work(url_list)
-        split_task(10)
-        run()
-        print(aqi_list)
+    # url_list = crawl_city()
+    # if url_list:
+    #     push_work(url_list)
+    #     split_task(10)
+    #     run()
+    #     formated_data = format_data(aqi_list)
+    formated_data = read_csv_file('./file/AQI.csv')
+    draw_result_array(formated_data)
 
 
 if __name__ == '__main__':
